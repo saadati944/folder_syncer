@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.txtPath = new System.Windows.Forms.TextBox();
             this.lbladdr = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.lstLog = new System.Windows.Forms.ListBox();
@@ -49,12 +49,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtAddress
+            // txtPath
             // 
-            this.txtAddress.Location = new System.Drawing.Point(174, 220);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(541, 30);
-            this.txtAddress.TabIndex = 0;
+            this.txtPath.Location = new System.Drawing.Point(174, 220);
+            this.txtPath.Name = "txtPath";
+            this.txtPath.Size = new System.Drawing.Size(541, 30);
+            this.txtPath.TabIndex = 0;
             // 
             // lbladdr
             // 
@@ -78,6 +78,7 @@
             // lstLog
             // 
             this.lstLog.FormattingEnabled = true;
+            this.lstLog.HorizontalScrollbar = true;
             this.lstLog.ItemHeight = 25;
             this.lstLog.Location = new System.Drawing.Point(12, 305);
             this.lstLog.Name = "lstLog";
@@ -227,7 +228,7 @@
             this.Controls.Add(this.lstLog);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lbladdr);
-            this.Controls.Add(this.txtAddress);
+            this.Controls.Add(this.txtPath);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(743, 460);
@@ -244,7 +245,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Label lbladdr;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.ListBox lstLog;

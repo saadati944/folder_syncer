@@ -15,6 +15,12 @@ namespace folder_sync
 {
     public partial class frmMain : Form
     {
+        //public variables.
+        public connection con;
+        public string path;
+
+
+
         public frmMain()
         {
             InitializeComponent();
@@ -31,6 +37,7 @@ namespace folder_sync
         }
         private void Show_Local_IP_Address()
         {
+            //show a list of all local ip addresses in the "lstips";
             IPHostEntry IPHostEntry = Dns.GetHostEntry(Dns.GetHostName());
             foreach (IPAddress IPAddress in IPHostEntry.AddressList)
             {
@@ -41,7 +48,22 @@ namespace folder_sync
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            //try to convert user inputs to ip and port.
+            try
+            {
+                IPAddress ip= IPAddress.Parse(txtIPAddress.Text);
+                int port = int.Parse(txtPort.Text);
+                if (!Directory.Exists(txtPath.Text))
+                    throw new Exception("path was not accessible !!!");
 
+                //create a new connection with the given parameters.
+                con = new connection(ip, port);
+                path = txtPath.Text;
+            }
+            catch(Exception ex) 
+            {
+                lstLog.Items.Add("Error. cant connect. message : " + ex.Message);
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.IO;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,9 +20,9 @@ namespace folder_sync
             InitializeComponent();
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void modeChange(object sender, EventArgs e)
         {
-
+            delaysecs.Enabled = ((RadioButton)sender).Checked;
         }
     }
 }

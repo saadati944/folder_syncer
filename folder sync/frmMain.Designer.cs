@@ -40,11 +40,18 @@
             this.lblip = new System.Windows.Forms.Label();
             this.btnListen = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.folderWatcher = new System.IO.FileSystemWatcher();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.delaysecs = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.folderWatcher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).BeginInit();
             this.SuspendLayout();
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(174, 122);
+            this.txtAddress.Location = new System.Drawing.Point(174, 180);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(541, 30);
             this.txtAddress.TabIndex = 0;
@@ -52,7 +59,7 @@
             // lbladdr
             // 
             this.lbladdr.AutoSize = true;
-            this.lbladdr.Location = new System.Drawing.Point(12, 125);
+            this.lbladdr.Location = new System.Drawing.Point(12, 183);
             this.lbladdr.Name = "lbladdr";
             this.lbladdr.Size = new System.Drawing.Size(156, 25);
             this.lbladdr.TabIndex = 1;
@@ -60,19 +67,18 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(12, 158);
+            this.btnConnect.Location = new System.Drawing.Point(12, 216);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(348, 45);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "Connect to";
             this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // lstLog
             // 
             this.lstLog.FormattingEnabled = true;
             this.lstLog.ItemHeight = 25;
-            this.lstLog.Location = new System.Drawing.Point(12, 207);
+            this.lstLog.Location = new System.Drawing.Point(12, 265);
             this.lstLog.Name = "lstLog";
             this.lstLog.Size = new System.Drawing.Size(703, 104);
             this.lstLog.TabIndex = 3;
@@ -80,7 +86,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 89);
+            this.label1.Location = new System.Drawing.Point(12, 147);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 25);
             this.label1.TabIndex = 5;
@@ -88,7 +94,7 @@
             // 
             // txtIPAddress
             // 
-            this.txtIPAddress.Location = new System.Drawing.Point(137, 86);
+            this.txtIPAddress.Location = new System.Drawing.Point(137, 144);
             this.txtIPAddress.Name = "txtIPAddress";
             this.txtIPAddress.Size = new System.Drawing.Size(337, 30);
             this.txtIPAddress.TabIndex = 4;
@@ -96,7 +102,7 @@
             // lblport
             // 
             this.lblport.AutoSize = true;
-            this.lblport.Location = new System.Drawing.Point(480, 89);
+            this.lblport.Location = new System.Drawing.Point(480, 147);
             this.lblport.Name = "lblport";
             this.lblport.Size = new System.Drawing.Size(58, 25);
             this.lblport.TabIndex = 7;
@@ -104,7 +110,7 @@
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(544, 86);
+            this.txtPort.Location = new System.Drawing.Point(544, 144);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(171, 30);
             this.txtPort.TabIndex = 8;
@@ -128,7 +134,7 @@
             // 
             // btnListen
             // 
-            this.btnListen.Location = new System.Drawing.Point(367, 158);
+            this.btnListen.Location = new System.Drawing.Point(367, 216);
             this.btnListen.Name = "btnListen";
             this.btnListen.Size = new System.Drawing.Size(348, 45);
             this.btnListen.TabIndex = 11;
@@ -145,11 +151,69 @@
             this.lblStatus.Text = "Disconnected";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // folderWatcher
+            // 
+            this.folderWatcher.EnableRaisingEvents = true;
+            this.folderWatcher.SynchronizingObject = this;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(169, 92);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(264, 29);
+            this.radioButton1.TabIndex = 13;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Every                      seconds";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.modeChange);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 94);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(123, 25);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Sync Mode :";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(485, 92);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(110, 29);
+            this.radioButton2.TabIndex = 15;
+            this.radioButton2.Text = "Real time";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // delaysecs
+            // 
+            this.delaysecs.Location = new System.Drawing.Point(247, 92);
+            this.delaysecs.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.delaysecs.Name = "delaysecs";
+            this.delaysecs.Size = new System.Drawing.Size(97, 30);
+            this.delaysecs.TabIndex = 16;
+            this.delaysecs.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(727, 323);
+            this.ClientSize = new System.Drawing.Size(727, 381);
+            this.Controls.Add(this.delaysecs);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnListen);
             this.Controls.Add(this.lblip);
@@ -163,8 +227,13 @@
             this.Controls.Add(this.lbladdr);
             this.Controls.Add(this.txtAddress);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(743, 420);
+            this.MinimumSize = new System.Drawing.Size(743, 420);
             this.Name = "frmMain";
             this.Text = "Folder Syncer";
+            ((System.ComponentModel.ISupportInitialize)(this.folderWatcher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,6 +253,11 @@
         private System.Windows.Forms.Label lblip;
         private System.Windows.Forms.Button btnListen;
         private System.Windows.Forms.Label lblStatus;
+        private System.IO.FileSystemWatcher folderWatcher;
+        private System.Windows.Forms.NumericUpDown delaysecs;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

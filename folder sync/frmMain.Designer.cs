@@ -37,7 +37,6 @@
             this.lblport = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblip = new System.Windows.Forms.Label();
             this.btnListen = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.folderWatcher = new System.IO.FileSystemWatcher();
@@ -45,13 +44,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.delaysecs = new System.Windows.Forms.NumericUpDown();
+            this.lstips = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.folderWatcher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).BeginInit();
             this.SuspendLayout();
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(174, 180);
+            this.txtAddress.Location = new System.Drawing.Point(174, 220);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(541, 30);
             this.txtAddress.TabIndex = 0;
@@ -59,7 +59,7 @@
             // lbladdr
             // 
             this.lbladdr.AutoSize = true;
-            this.lbladdr.Location = new System.Drawing.Point(12, 183);
+            this.lbladdr.Location = new System.Drawing.Point(12, 223);
             this.lbladdr.Name = "lbladdr";
             this.lbladdr.Size = new System.Drawing.Size(156, 25);
             this.lbladdr.TabIndex = 1;
@@ -67,18 +67,19 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(12, 216);
+            this.btnConnect.Location = new System.Drawing.Point(12, 256);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(348, 45);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "Connect to";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // lstLog
             // 
             this.lstLog.FormattingEnabled = true;
             this.lstLog.ItemHeight = 25;
-            this.lstLog.Location = new System.Drawing.Point(12, 265);
+            this.lstLog.Location = new System.Drawing.Point(12, 305);
             this.lstLog.Name = "lstLog";
             this.lstLog.Size = new System.Drawing.Size(703, 104);
             this.lstLog.TabIndex = 3;
@@ -86,7 +87,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 147);
+            this.label1.Location = new System.Drawing.Point(12, 187);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 25);
             this.label1.TabIndex = 5;
@@ -94,7 +95,7 @@
             // 
             // txtIPAddress
             // 
-            this.txtIPAddress.Location = new System.Drawing.Point(137, 144);
+            this.txtIPAddress.Location = new System.Drawing.Point(137, 184);
             this.txtIPAddress.Name = "txtIPAddress";
             this.txtIPAddress.Size = new System.Drawing.Size(337, 30);
             this.txtIPAddress.TabIndex = 4;
@@ -102,7 +103,7 @@
             // lblport
             // 
             this.lblport.AutoSize = true;
-            this.lblport.Location = new System.Drawing.Point(480, 147);
+            this.lblport.Location = new System.Drawing.Point(480, 187);
             this.lblport.Name = "lblport";
             this.lblport.Size = new System.Drawing.Size(58, 25);
             this.lblport.TabIndex = 7;
@@ -110,7 +111,7 @@
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(544, 144);
+            this.txtPort.Location = new System.Drawing.Point(544, 184);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(171, 30);
             this.txtPort.TabIndex = 8;
@@ -120,21 +121,13 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 25);
+            this.label2.Size = new System.Drawing.Size(228, 25);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Your IP address is :";
-            // 
-            // lblip
-            // 
-            this.lblip.AutoSize = true;
-            this.lblip.Location = new System.Drawing.Point(199, 9);
-            this.lblip.Name = "lblip";
-            this.lblip.Size = new System.Drawing.Size(0, 25);
-            this.lblip.TabIndex = 10;
+            this.label2.Text = "Your local IP addresses :";
             // 
             // btnListen
             // 
-            this.btnListen.Location = new System.Drawing.Point(367, 216);
+            this.btnListen.Location = new System.Drawing.Point(367, 256);
             this.btnListen.Name = "btnListen";
             this.btnListen.Size = new System.Drawing.Size(348, 45);
             this.btnListen.TabIndex = 11;
@@ -144,7 +137,7 @@
             // lblStatus
             // 
             this.lblStatus.BackColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(-9, 43);
+            this.lblStatus.Location = new System.Drawing.Point(-9, 94);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(743, 28);
             this.lblStatus.TabIndex = 12;
@@ -160,7 +153,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(169, 92);
+            this.radioButton1.Location = new System.Drawing.Point(169, 132);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(264, 29);
             this.radioButton1.TabIndex = 13;
@@ -172,7 +165,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 94);
+            this.label3.Location = new System.Drawing.Point(12, 134);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 25);
             this.label3.TabIndex = 14;
@@ -181,7 +174,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(485, 92);
+            this.radioButton2.Location = new System.Drawing.Point(485, 132);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(110, 29);
             this.radioButton2.TabIndex = 15;
@@ -190,7 +183,7 @@
             // 
             // delaysecs
             // 
-            this.delaysecs.Location = new System.Drawing.Point(247, 92);
+            this.delaysecs.Location = new System.Drawing.Point(247, 132);
             this.delaysecs.Minimum = new decimal(new int[] {
             5,
             0,
@@ -205,18 +198,27 @@
             0,
             0});
             // 
+            // lstips
+            // 
+            this.lstips.FormattingEnabled = true;
+            this.lstips.ItemHeight = 25;
+            this.lstips.Location = new System.Drawing.Point(246, 7);
+            this.lstips.Name = "lstips";
+            this.lstips.Size = new System.Drawing.Size(469, 79);
+            this.lstips.TabIndex = 17;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(727, 381);
+            this.ClientSize = new System.Drawing.Size(727, 421);
+            this.Controls.Add(this.lstips);
             this.Controls.Add(this.delaysecs);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnListen);
-            this.Controls.Add(this.lblip);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.lblport);
@@ -228,10 +230,11 @@
             this.Controls.Add(this.txtAddress);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(743, 420);
-            this.MinimumSize = new System.Drawing.Size(743, 420);
+            this.MaximumSize = new System.Drawing.Size(743, 460);
+            this.MinimumSize = new System.Drawing.Size(743, 460);
             this.Name = "frmMain";
             this.Text = "Folder Syncer";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.folderWatcher)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).EndInit();
             this.ResumeLayout(false);
@@ -250,7 +253,6 @@
         private System.Windows.Forms.Label lblport;
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblip;
         private System.Windows.Forms.Button btnListen;
         private System.Windows.Forms.Label lblStatus;
         private System.IO.FileSystemWatcher folderWatcher;
@@ -258,6 +260,7 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.ListBox lstips;
     }
 }
 

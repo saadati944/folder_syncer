@@ -87,6 +87,24 @@ namespace folder_sync
                     packets[i] = new packet(mode, serieid, i, (short)(content.Length - i * 4082), content.Length, content, i * 4082);
             return packets;
         }
+        public byte[] join_packets(packet[] packets)
+        {
+            if (packets.Length == 0)
+                return new byte[] { };
+            List<byte> v = new List<byte>();
+            for (int i = 0; i < packets.Length; i++)
+            {
+                foreach (packet x in packets)
+                {
+                    if (x.serieIndex != i)
+                        continue;
+                    v.AddRange(x.content);
+                    if (x.contentLength < 4082)
+                        v.RemoveRange(v.Count - (4082 - x.contentLength), (4082 - x.contentLength));
+                }
+            }
+            return v.ToArray();
+        }
         #endregion
 
         #region tools

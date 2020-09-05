@@ -6,7 +6,7 @@ packet construction :
 
 1.shrot mode - 2 bytes:
 	0:string message
-	1:
+	1:bytes array
 	2:
 
 2.int seriesID - 4 bytes:

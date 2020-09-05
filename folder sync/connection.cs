@@ -17,7 +17,10 @@ namespace folder_sync
         public Socket socket;
         public IPAddress ip;
         public int port;
+
+        //private variables
         private int _lastPacketid = 0;
+        private List<List<packet>> _packets = new List<List<packet>>();
 
         //rootpath is for saving incomming files.
         public string rootpath;
@@ -25,9 +28,9 @@ namespace folder_sync
         //public events
         //todo : create events for connect, send, receive, ...
 
-        
 
-        public connection(IPAddress ip,int port,string rootpath="")
+
+        public connection(IPAddress ip, int port, string rootpath = "")
         {
             this.ip = ip;
             this.port = port;
@@ -66,6 +69,43 @@ namespace folder_sync
             return !socket.Connected;
         }
 
+        #endregion
+
+        #region transmiting_packets
+        public void send(byte[] content, short mode = 1)
+        {
+            packet[] ps = create_packets(content, mode);
+            foreach (packet x in ps)
+                socket.Send(x.getBytes());
+        }
+        //todo : create start receiving function that receives bytes and create packets and ...
+        #endregion
+
+        #region packets_manager
+        private void handle_packets(packet p)
+        {
+            for (int i = 0; i < _packets.Count; i++)
+                if (_packets[i][0].seriesID == p.seriesID)
+                {
+                    _packets[i].Add(p);
+                    check_packet_series(i);
+                    return;
+                }
+            _packets.Add(new List<packet>());
+            _packets[_packets.Count - 1].Add(p);
+        }
+        private void check_packet_series(int ind)
+        {
+            int totallen = _packets[ind][0].totalLength;
+            int currentlen = 0;
+            for (int i = 0; i < _packets[ind].Count; i++)
+                currentlen += _packets[ind][i].contentLength;
+            if (totallen != currentlen)
+                return;
+            /*"receiver functions name here "(*/ join_packets(_packets[ind].ToArray()) /*)*/;
+            _packets.RemoveAt(ind);
+            //todo : 
+        }
         #endregion
 
         #region packets_factory
@@ -115,5 +155,5 @@ namespace folder_sync
         }
         #endregion
     }
-    
+
 }

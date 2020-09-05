@@ -68,6 +68,26 @@ namespace folder_sync
 
         #endregion
 
+        #region packets_factory
+        //create packets to send
+        public packet[] create_packets(byte[] content, short mode)
+        {
+            //each packet can contain only 4082 bytes
+            if (content.Length <= 4082)
+                return new packet[] { new packet(mode, get_serie_ID(), 0, (short)content.Length, content.Length, content) };
+            int packetscount = (content.Length - content.Length % 4082) / 4082;
+            if (content.Length % 4082 != 0)
+                packetscount++;
+            packet[] packets = new packet[packetscount];
+            int serieid = get_serie_ID();
+            for (short i = 0; i < packetscount; i++)
+                if (i != packetscount - 1)
+                    packets[i] = new packet(mode, serieid, i, 4082, content.Length, content, 4082 * i);
+                else
+                    packets[i] = new packet(mode, serieid, i, (short)(content.Length - i * 4082), content.Length, content, i * 4082);
+            return packets;
+        }
+        #endregion
 
         #region tools
         //generate a unique serie id

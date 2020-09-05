@@ -34,7 +34,32 @@ namespace folder_sync
         private void frmMain_Load(object sender, EventArgs e)
         {
             Show_Local_IP_Address();
+            connection c1 = new connection(IPAddress.Parse("127.0.0.1"), 1234);
+            connection c2 = new connection(IPAddress.Parse("127.0.0.1"), 1234);
+            
+            c1.ev1 += C1_ev1;
+            c2.ev1 += C2_ev1;
+
+            Task.Run(new Action(()=> c2.listen()));
+            c1.connect();
+
+            c2.start_receive();
+            c1.send(File.ReadAllBytes(@"file1.pdf"), 1);
+
+
+
+            Application.Exit();
         }
+
+        private void C1_ev1(object sender, EventArgs e) 
+        {
+
+        }
+        private void C2_ev1(object sender, EventArgs e)
+        {
+            File.WriteAllBytes(@"file2.pdf", (byte[])sender);
+        }
+
         private void Show_Local_IP_Address()
         {
             //show a list of all local ip addresses in the "lstips";

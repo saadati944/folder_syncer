@@ -13,14 +13,35 @@ namespace folder_sync
     /// </summary>
     public class connection
     {
+        //public variables
         public Socket socket;
         public IPAddress ip;
         public int port;
+        private int _lastPacketid = 0;
 
-        public connection(IPAddress ip,int port)
+        //rootpath is for saving incomming files.
+        public string rootpath;
+
+        //public events
+        //todo : create events for connect, send, receive, ...
+
+        
+
+        public connection(IPAddress ip,int port,string rootpath="")
         {
             this.ip = ip;
             this.port = port;
+            this.rootpath = rootpath;
         }
+
+
+        #region tools
+        //generate a unique serie id
+        private int get_serie_ID()
+        {
+            return _lastPacketid++;
+        }
+        #endregion
     }
+    
 }

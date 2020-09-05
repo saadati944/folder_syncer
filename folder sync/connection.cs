@@ -78,6 +78,10 @@ namespace folder_sync
             foreach (packet x in ps)
                 socket.Send(x.getBytes());
         }
+        public void send(string mes, short mode = 0)
+        {
+            packet[] ps = create_packets(mes, mode);
+        }
         //todo : create start receiving function that receives bytes and create packets and ...
         #endregion
 
@@ -110,7 +114,7 @@ namespace folder_sync
 
         #region packets_factory
         //create packets to send
-        public packet[] create_packets(byte[] content, short mode)
+        public packet[] create_packets(byte[] content, short mode=1)
         {
             //each packet can contain only 4082 bytes
             if (content.Length <= 4082)
@@ -127,6 +131,15 @@ namespace folder_sync
                     packets[i] = new packet(mode, serieid, i, (short)(content.Length - i * 4082), content.Length, content, i * 4082);
             return packets;
         }
+        public packet[] create_packets(string content, short mode = 0)
+        {
+            return create_packets(Encoding.UTF8.GetBytes(content), mode);
+        }
+        public packet[] create_packets(string content,Encoding enc, short mode = 0)
+        {
+            return create_packets(enc.GetBytes(content), mode);
+        }
+
         public byte[] join_packets(packet[] packets)
         {
             if (packets.Length == 0)

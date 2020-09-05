@@ -34,6 +34,40 @@ namespace folder_sync
             this.rootpath = rootpath;
         }
 
+        #region create_connection
+        /// <summary>
+        /// connects to another socket that listens for a connection.
+        /// </summary>
+        /// <remarks>socket.connected</remarks>
+        public bool connect()
+        {
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Connect(ip, port);
+            return socket.Connected;
+        }
+
+        /// <summary>
+        /// listen for an incomming connection.
+        /// </summary>
+        /// <returns>socket.connected</returns>
+        public bool listen()
+        {
+            TcpListener listener = new TcpListener(ip, port);
+            listener.Start();
+            socket = listener.AcceptSocket();
+            listener.Stop();
+            return socket.Connected;
+        }
+
+        //close the connected.
+        public bool close()
+        {
+            socket.Close();
+            return !socket.Connected;
+        }
+
+        #endregion
+
 
         #region tools
         //generate a unique serie id

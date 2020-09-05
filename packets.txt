@@ -1,0 +1,25 @@
+packet is what the connection class sends to(or in the other side receives from) another side.
+each packet is 4KB (4096 bytes)
+
+
+packet construction :
+
+1.shrot mode - 2 bytes:
+	0:string message
+	1:
+	2:
+
+2.int seriesID - 4 bytes:
+	- this integer is unique for any array of packet.
+
+3.short serieIndex - 2 bytes:
+	- the index of this packet in the serie.
+
+4.short contentLength - 2 bytes:
+	- the length of content in this packet.
+
+5.int totalLength - 4 bytes:
+	- total length of the content.
+
+5.byte[] content - 4082 bytes:
+	- the main content of the packet.

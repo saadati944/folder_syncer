@@ -17,13 +17,16 @@ namespace folder_sync
         public Socket socket;
         public IPAddress ip;
         public int port;
+        //rootpath is for saving incomming files.
+        public string rootpath;
 
         //private variables
         private int _lastPacketid = 0;
         private List<List<packet>> _packets = new List<List<packet>>();
+        private bool is_receiving = false;
 
-        //rootpath is for saving incomming files.
-        public string rootpath;
+        public event EventHandler ev1;
+        
 
         //public events
         //todo : create events for connect, send, receive, ...
@@ -69,6 +72,11 @@ namespace folder_sync
             return !socket.Connected;
         }
 
+        public bool receiving()
+        {
+            return is_receiving;
+        }
+
         #endregion
 
         #region transmiting_packets
@@ -83,6 +91,35 @@ namespace folder_sync
             packet[] ps = create_packets(mes, mode);
         }
         //todo : create start receiving function that receives bytes and create packets and ...
+        public void start_receive(bool newthread = false)
+        {
+            if (!newthread)
+            {
+                Task.Run(new Action(() => start_receive(true)));
+                return;
+            }
+            try
+            {
+                is_receiving = true;
+                byte[] b = new byte[4096];
+                while (true)
+                {
+                    try
+                    {
+                        socket.Receive(b);
+                        packet p = new packet(b, 0);
+                        handle_packets(p);
+                    }
+                    catch(Exception ex)
+                    {
+                        //todo : whrow if ex not equals a receive time out exception.
+                        if (!ex.Message.Contains("Timeout"))
+                            throw ex;
+                    }
+                }
+            }
+            catch { is_receiving = false; }
+        }
         #endregion
 
         #region packets_manager
@@ -106,7 +143,12 @@ namespace folder_sync
                 currentlen += _packets[ind][i].contentLength;
             if (totallen != currentlen)
                 return;
-            /*"receiver functions name here "(*/ join_packets(_packets[ind].ToArray()) /*)*/;
+            try
+            {
+                ev1((join_packets(_packets[ind].ToArray())), null);
+            }
+            catch { }
+            /*"receiver functions name here "(*/ //join_packets(_packets[ind].ToArray()) /*)*/;
             _packets.RemoveAt(ind);
             //todo : 
         }

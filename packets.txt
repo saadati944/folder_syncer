@@ -1,11 +1,11 @@
 packet is what the connection class sends to(or in the other side receives from) another side.
 each packet is 4KB (4096 bytes)
 
-
 packet construction :
 
 1.shrot mode - 2 bytes:
 	0:string message
+		-string mode only supports utf-8 encoding. for other encodings send your data over bytes array mode.
 	1:bytes array
 	2:
 

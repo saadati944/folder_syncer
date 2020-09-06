@@ -13,6 +13,7 @@ namespace folder_sync
     /// </summary>
     public class connection
     {
+        #region variables
         //public variables
         public Socket socket;
         public IPAddress ip;
@@ -25,13 +26,18 @@ namespace folder_sync
         private List<List<packet>> _packets = new List<List<packet>>();
         private bool is_receiving = false;
 
-        public event EventHandler ev1;
-        
+
 
         //public events
+        public delegate void receivedbytesEventHandler(byte[] bs);
+        public event receivedbytesEventHandler onBytesReceived;
+
+        public delegate void receivestringEventHandler(string mes);
+        public event receivestringEventHandler onStringReceived;
+
         //todo : create events for connect, send, receive, ...
 
-
+        #endregion
 
         public connection(IPAddress ip, int port, string rootpath = "")
         {
@@ -89,6 +95,8 @@ namespace folder_sync
         public void send(string mes, short mode = 0)
         {
             packet[] ps = create_packets(mes, mode);
+            foreach (packet x in ps)
+                socket.Send(x.getBytes());
         }
         //todo : create start receiving function that receives bytes and create packets and ...
         public void start_receive(bool newthread = false)
@@ -110,7 +118,7 @@ namespace folder_sync
                         packet p = new packet(b, 0);
                         handle_packets(p);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         //todo : whrow if ex not equals a receive time out exception.
                         if (!ex.Message.Contains("Timeout"))
@@ -143,11 +151,15 @@ namespace folder_sync
                 currentlen += _packets[ind][i].contentLength;
             if (totallen != currentlen)
                 return;
-            try
+            switch (_packets[ind][0].mode)
             {
-                ev1((join_packets(_packets[ind].ToArray())), null);
+                case (0):
+                    onStringReceived(Encoding.UTF8.GetString(join_packets(_packets[ind].ToArray())));
+                    break;
+                case (1):
+                    onBytesReceived(join_packets(_packets[ind].ToArray()));
+                    break;
             }
-            catch { }
             /*"receiver functions name here "(*/ //join_packets(_packets[ind].ToArray()) /*)*/;
             _packets.RemoveAt(ind);
             //todo : 
@@ -156,7 +168,7 @@ namespace folder_sync
 
         #region packets_factory
         //create packets to send
-        public packet[] create_packets(byte[] content, short mode=1)
+        public packet[] create_packets(byte[] content, short mode = 1)
         {
             //each packet can contain only 4082 bytes
             if (content.Length <= 4082)
@@ -176,10 +188,6 @@ namespace folder_sync
         public packet[] create_packets(string content, short mode = 0)
         {
             return create_packets(Encoding.UTF8.GetBytes(content), mode);
-        }
-        public packet[] create_packets(string content,Encoding enc, short mode = 0)
-        {
-            return create_packets(enc.GetBytes(content), mode);
         }
 
         public byte[] join_packets(packet[] packets)

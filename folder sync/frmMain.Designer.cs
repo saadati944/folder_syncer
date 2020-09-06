@@ -45,8 +45,15 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.delaysecs = new System.Windows.Forms.NumericUpDown();
             this.lstips = new System.Windows.Forms.ListBox();
+            this.pnlmessaging = new System.Windows.Forms.Panel();
+            this.btnDisconnect = new System.Windows.Forms.Button();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.lstmsg = new System.Windows.Forms.ListBox();
+            this.txtmes = new System.Windows.Forms.TextBox();
+            this.btnsendmsg = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.folderWatcher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).BeginInit();
+            this.pnlmessaging.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPath
@@ -80,7 +87,7 @@
             this.lstLog.FormattingEnabled = true;
             this.lstLog.HorizontalScrollbar = true;
             this.lstLog.ItemHeight = 25;
-            this.lstLog.Location = new System.Drawing.Point(12, 305);
+            this.lstLog.Location = new System.Drawing.Point(12, 312);
             this.lstLog.Name = "lstLog";
             this.lstLog.Size = new System.Drawing.Size(703, 104);
             this.lstLog.TabIndex = 3;
@@ -208,11 +215,68 @@
             this.lstips.Size = new System.Drawing.Size(469, 79);
             this.lstips.TabIndex = 17;
             // 
+            // pnlmessaging
+            // 
+            this.pnlmessaging.Controls.Add(this.btnsendmsg);
+            this.pnlmessaging.Controls.Add(this.txtmes);
+            this.pnlmessaging.Controls.Add(this.lstmsg);
+            this.pnlmessaging.Controls.Add(this.btnPause);
+            this.pnlmessaging.Controls.Add(this.btnDisconnect);
+            this.pnlmessaging.Location = new System.Drawing.Point(12, 7);
+            this.pnlmessaging.Name = "pnlmessaging";
+            this.pnlmessaging.Size = new System.Drawing.Size(703, 277);
+            this.pnlmessaging.TabIndex = 18;
+            this.pnlmessaging.Visible = false;
+            // 
+            // btnDisconnect
+            // 
+            this.btnDisconnect.Location = new System.Drawing.Point(352, 240);
+            this.btnDisconnect.Name = "btnDisconnect";
+            this.btnDisconnect.Size = new System.Drawing.Size(348, 35);
+            this.btnDisconnect.TabIndex = 0;
+            this.btnDisconnect.Text = "Disconnect";
+            this.btnDisconnect.UseVisualStyleBackColor = true;
+            // 
+            // btnPause
+            // 
+            this.btnPause.Location = new System.Drawing.Point(3, 240);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(348, 35);
+            this.btnPause.TabIndex = 1;
+            this.btnPause.Text = "Pause";
+            this.btnPause.UseVisualStyleBackColor = true;
+            // 
+            // lstmsg
+            // 
+            this.lstmsg.FormattingEnabled = true;
+            this.lstmsg.ItemHeight = 25;
+            this.lstmsg.Location = new System.Drawing.Point(4, 4);
+            this.lstmsg.Name = "lstmsg";
+            this.lstmsg.Size = new System.Drawing.Size(695, 204);
+            this.lstmsg.TabIndex = 2;
+            // 
+            // txtmes
+            // 
+            this.txtmes.Location = new System.Drawing.Point(4, 209);
+            this.txtmes.Name = "txtmes";
+            this.txtmes.Size = new System.Drawing.Size(664, 30);
+            this.txtmes.TabIndex = 3;
+            // 
+            // btnsendmsg
+            // 
+            this.btnsendmsg.Location = new System.Drawing.Point(668, 208);
+            this.btnsendmsg.Name = "btnsendmsg";
+            this.btnsendmsg.Size = new System.Drawing.Size(32, 32);
+            this.btnsendmsg.TabIndex = 4;
+            this.btnsendmsg.Text = ">";
+            this.btnsendmsg.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(727, 421);
+            this.Controls.Add(this.pnlmessaging);
             this.Controls.Add(this.lstips);
             this.Controls.Add(this.delaysecs);
             this.Controls.Add(this.radioButton2);
@@ -238,6 +302,8 @@
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.folderWatcher)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delaysecs)).EndInit();
+            this.pnlmessaging.ResumeLayout(false);
+            this.pnlmessaging.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,6 +328,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.ListBox lstips;
+        private System.Windows.Forms.Panel pnlmessaging;
+        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Button btnDisconnect;
+        private System.Windows.Forms.ListBox lstmsg;
+        private System.Windows.Forms.Button btnsendmsg;
+        private System.Windows.Forms.TextBox txtmes;
     }
 }
 
